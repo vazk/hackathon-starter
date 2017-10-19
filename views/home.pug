@@ -1,27 +1,199 @@
-extends layout
+extends workspace-layout
 
-block content
-  h1 Hackathon Starter
-  p.lead A boilerplate for Node.js web applications.
-  hr
-  .row
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
-    .col-sm-6
-      h2 Heading
-      p Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-      p
-        a.btn.btn-default(href='#', role='button') View details »
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  script(src='../bower_components/moment/moment.js')
+  script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
+
+  body.hold-transition.skin-blue.sidebar-mini
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content
+        .row
+          .col-md-12
+            .box.box-primary.box-shadow
+              .box-header.with-border(style="justify-content: center;")
+                i.fa.fa-laptop
+                h3.box-title Video
+
+                i.dropdown
+                  a.dropdown-toggle(data-toggle='dropdown', href='#', style='margin:20px', aria-expanded='false',)
+                    | Students...
+                    span.caret
+                  ul.dropdown-menu
+                    li(role='presentation')
+                      a(role='menuitem', tabindex='-1', href='#') Poxos
+                    li(role='presentation')
+                      a(role='menuitem', tabindex='-1', href='#') Petros
+                    li(role='presentation')
+                      a(role='menuitem', tabindex='-1', href='#') Martiros
+                .btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
+                .btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
+
+                .box-tools.pull-right
+                  h4.box-title(style="z-index: 1070; margin-right: 20px; vertical-align:middle;") 00:00:00
+                  .btn.bg-gray(style="z-index: 1070; width: 60px;  margin-right: 60px; padding: 3px;") Meter On
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+        .row
+          .col-md-12
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-calendar
+                h3.box-title Calendar
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                section.content
+                  .row
+                    .col-md-3
+                      .box.box-solid
+                        .box-header.with-border
+                          h4.box-title Draggable Events
+                        .box-body
+                          // the events
+                          #external-events
+                            .external-event.bg-green Lunch
+                            .external-event.bg-yellow Go home
+                            .external-event.bg-aqua Do homework
+                            .external-event.bg-light-blue Work on UI design
+                            .external-event.bg-red Sleep tight
+                            .checkbox
+                              label(for='drop-remove')
+                                input#drop-remove(type='checkbox')
+                                |                     remove after drop
+                        // /.box-body
+                      // /. box
+                      .box.box-solid
+                        .box-header.with-border
+                          h3.box-title Create Event
+                        .box-body
+                          .btn-group(style='width: 100%; margin-bottom: 10px;')
+                            // <button type="button" id="color-chooser-btn" class="btn btn-info btn-block dropdown-toggle" data-toggle="dropdown">Color <span class="caret"></span></button>
+                            ul#color-chooser.fc-color-picker
+                              li
+                                a.text-aqua(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-blue(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-light-blue(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-teal(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-yellow(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-orange(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-green(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-lime(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-red(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-purple(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-fuchsia(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-muted(href='#')
+                                  i.fa.fa-square
+                              li
+                                a.text-navy(href='#')
+                                  i.fa.fa-square
+                          // /btn-group
+                          .input-group
+                            input#new-event.form-control(type='text', placeholder='Event Title')
+                            .input-group-btn
+                              button#add-new-event.btn.btn-primary.btn-flat(type='button') Add
+                            // /btn-group
+                          // /input-group
+                    // /.col
+                    .col-md-9
+                      .box-body.no-padding
+                        // THE CALENDAR
+                        #calendar
+                      // /.box-body
+                    // /.col
+                  // /.row
+                // /.content
+              // /.content-wrapper
+        .row
+          .col-md-6
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-user
+                h3.box-title Students
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body.no-padding
+                ul.users-list.clearfix
+                  li
+                    img(src='dist/img/user1-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Alexander Pierce
+                    span.users-list-date Today
+                  li
+                    img(src='dist/img/user8-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Norman
+                    span.users-list-date Yesterday
+                  li
+                    img(src='dist/img/user7-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Jane
+                    span.users-list-date 12 Jan
+                  li
+                    img(src='dist/img/user6-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') John
+                    span.users-list-date 12 Jan
+                  li
+                    img(src='dist/img/user2-160x160.jpg', alt='User Image')
+                    a.users-list-name(href='#') Alexander
+                    span.users-list-date 13 Jan
+                  li
+                    img(src='dist/img/user5-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Sarah
+                    span.users-list-date 14 Jan
+                  li
+                    img(src='dist/img/user4-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Nora
+                    span.users-list-date 15 Jan
+                  li
+                    img(src='dist/img/user3-128x128.jpg', alt='User Image')
+                    a.users-list-name(href='#') Nadia
+                    span.users-list-date 15 Jan
+                // /.users-list
+
+          .col-md-6
+            .box.box-primary.col-md-4.box-shadow
+              .box-header.with-border
+                i.fa.fa-bar-chart-o
+                h3.box-title Earnings
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                #line-chart(style='height: 150px;')
+
+
+              // /.box-body
+          // /.col
+        // /.row
+      // /.content
+    // /.content-wrapper
+
+    script(src='/js/workspace/workspace.js')

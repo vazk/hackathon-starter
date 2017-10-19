@@ -1,24 +1,59 @@
-extends ../layout
+extends ../workspace-layout
 
-block content
-  .page-header
-    h3 Sign up
-  form.form-horizontal(id='signup-form', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
-    .form-group
-      label.col-sm-3.control-label(for='password') Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', required)
-    .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-      .col-sm-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword', placeholder='Confirm Password', required)
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        button.btn.btn-success(type='submit')
-          i.fa.fa-user-plus
-          | Signup
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  script(src='../bower_components/moment/moment.js')
+  script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
+
+  body.hold-transition.skin-blue.sidebar-mini
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content.vertical-center
+        .row
+          //.col-md-4
+          //.col-md-4
+          .box.box-primary.col-md-4.box-account.box-shadow
+            .box-header.with-border
+              h3.box-title Sign Up
+            .box-body
+              form.login-form
+                .login-group
+                  input.login-input(type='email', name='email', id='email', autofocus, required)
+                  span.login-highlight
+                  span.login-bar
+                  label.login-label e-mail
+                .login-group
+                  input.login-input(type='password', name='password', id='password', required)
+                  span.login-highlight
+                  span.login-bar
+                  label.login-label password
+                .login-group
+                  input.login-input(type='password', name='confirmPassword', id='confirmPassword', required)
+                  span.login-highlight
+                  span.login-bar
+                  label.login-label confirm password
+                .login
+                  label(style="margin-right:1em") I'm a
+                  input.radio-input(type='radio', , name="role", id='teacher', checked='checked')
+                  | teacher
+                  input.radio-input(type='radio', name="role", id='parent')
+                  | parent
+                  input.radio-input(type='radio', name="role", id='student')
+                  | student
+                button.login-button.buttonBlue(type='submit')
+                  | sign up
+                  //.ripples.buttonRipples
+                    span.ripplesCircle
+          //.col-md-4
+
+              // /.box-body
+          // /.col
+        // /.row
+      // /.content
+    // /.content-wrapper
+
+    script(src='/js/workspace/workspace.js')

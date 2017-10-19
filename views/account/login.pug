@@ -1,44 +1,46 @@
-extends ../layout
+extends ../workspace-layout
 
-block content
-  .page-header
-    h3 Sign in
-  form.form-horizontal(method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
-    .form-group
-      label.col-sm-3.control-label(for='password') Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password', placeholder='Password', required)
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        button.col-sm-3.btn.btn-primary(type='submit')
-          i.fa.fa-user
-          | Login
-        a.btn.btn-link(href='/forgot') Forgot your password?
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        hr
-    .form-group
-      .col-sm-offset-3.col-sm-7
-        a.btn.btn-block.btn-facebook.btn-social(href='/auth/facebook')
-          i.fa.fa-facebook
-          | Sign in with Facebook
-        a.btn.btn-block.btn-twitter.btn-social(href='/auth/twitter')
-          i.fa.fa-twitter
-          | Sign in with Twitter
-        a.btn.btn-block.btn-google.btn-social(href='/auth/google')
-          i.fa.fa-google-plus
-          | Sign in with Google
-        a.btn.btn-block.btn-github.btn-social(href='/auth/github')
-          i.fa.fa-github
-          | Sign in with GitHub
-        a.btn.btn-block.btn-linkedin.btn-social(href='/auth/linkedin')
-          i.fa.fa-linkedin
-          | Sign in with LinkedIn
-        a.btn.btn-block.btn-instagram.btn-social(href='/auth/instagram')
-          i.fa.fa-instagram
-          | Sign in with Instagram
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  script(src='../bower_components/moment/moment.js')
+  script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
+
+  body.hold-transition.skin-blue.sidebar-mini
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content.vertical-center
+        .row
+          //.col-md-4
+          //.col-md-4
+          .box.box-primary.col-md-4.box-account.box-shadow
+            .box-header.with-border
+              h3.box-title Sign In
+            .box-body
+              form.login-form
+                .login-group
+                  input.login-input(type='email', name='email', id='email', autofocus, required)
+                  span.login-highlight
+                  span.login-bar
+                  label.login-label e-mail
+                .login-group
+                  input.login-input(type='password', name='password', id='password', required)
+                  span.login-highlight
+                  span.login-bar
+                  label.login-label password
+                button.login-button.buttonBlue(type='button')
+                  | sign in
+                  //.ripples.buttonRipples
+                    span.ripplesCircle
+          //.col-md-4
+
+              // /.box-body
+          // /.col
+        // /.row
+      // /.content
+    // /.content-wrapper
+
+    script(src='/js/workspace/workspace.js')
