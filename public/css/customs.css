@@ -1,0 +1,190 @@
+body {
+  background: url(../images/Secondary-Education-1100x680.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.main-footer, .main-header, .navbar{
+    background: rgba(0, 0, 0, 0.6);
+    color: rgba(255, 255, 255, 255);
+}
+
+
+.box-account {
+    max-width: 400px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.6);
+    box-shadow: 0px 0px 30px 4px rgba(0,0,0,0.6);
+}
+
+.workspace {
+  margin-top: 60px;
+}
+
+.navbar-workspace {
+  width: 100%;
+}
+
+
+
+
+
+.login-group {
+	position: relative;
+	margin-bottom: 2em;
+}
+
+.login-input {
+	font-size: 18px;
+	padding: 10px 10px 10px 5px;
+	-webkit-appearance: none;
+	display: block;
+	background: #fafafa;
+	color: #636363;
+	width: 100%;
+	border: none;
+	border-radius: 0;
+	border-bottom: 1px solid #757575;
+}
+
+.login-input:focus { outline: none; }
+
+.login-label {
+	color: #999;
+	font-size: 18px;
+	font-weight: normal;
+	position: absolute;
+	pointer-events: none;
+	left: 5px;
+	top: 10px;
+	-webkit-transition:all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
+.login-input:focus ~ .login-label, .login-input.used ~ .login-label {
+	top: -20px;
+  -webkit-transform: scale(.75);
+          transform: scale(.75); left: -2px;
+	/* font-size: 14px; */
+	color: #4a89dc;
+}
+
+.login-bar {
+	position: relative;
+	display: block;
+	width: 100%;
+}
+
+.login-bar:before, .login-bar:after {
+	content: '';
+	height: 2px;
+	width: 0;
+	bottom: 1px;
+	position: absolute;
+	background: #4a89dc;
+	-webkit-transition:all 0.2s ease;
+	transition: all 0.2s ease;
+}
+
+//.login-bar:before { left: 50%; }
+
+//.login-bar:after { right: 50%; }
+
+.login-input:focus ~ .login-bar:before, .login-input:focus ~ .login-bar:after { width: 10 0%; }
+
+
+/* Highlight */
+
+.login-highlight {
+	position: absolute;
+	height: 60%;
+	width: 100px;
+	top: 25%;
+	left: 0;
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+
+/* active */
+
+.login-input:focus ~ .login-highlight {
+	-webkit-animation: inputHighlighter 0.3s ease;
+	        animation: inputHighlighter 0.3s ease;
+}
+
+
+@-webkit-keyframes inputHighlighter {
+	from { background: #4a89dc; }
+	to 	{ width: 0; background: transparent; }
+}
+
+@keyframes inputHighlighter {
+	from { background: #4a89dc; }
+	to 	{ width: 0; background: transparent; }
+}
+
+
+/* Button */
+
+.login-button {
+  position: relative;
+  display: inline-block;
+  padding: 12px 24px;
+  margin: 2em 0 1em 0;
+  width: 100%;
+  vertical-align: middle;
+  color: #fff;
+  font-size: 16px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  text-align: center;
+  letter-spacing: 1px;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid #3160B6;
+  cursor: pointer;
+  -webkit-transition:all 0.15s ease;
+  transition: all 0.15s ease;
+}
+.login-button:focus { outline: 0; }
+
+
+/* Button modifiers */
+
+.buttonBlue {
+  background: #4a89dc;
+  text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
+}
+
+.buttonBlue:hover { background: #357bd8; }
+
+.vertical-center {
+  position: absolute;
+  width: 320px;
+  left:50%;
+  top:50%;
+  margin-left: -160px;
+  margin-top: -160px;
+}
+
+.login-form {
+  margin-top: 2em;
+}
+
+.login input[type=radio] {
+  margin: .5em;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #ffffff;
+}
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
+  color: #ffffff;
+  background-color: transparent;
+}
