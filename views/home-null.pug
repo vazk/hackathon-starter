@@ -1,0 +1,33 @@
+extends workspace-layout
+
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  script(src='../bower_components/moment/moment.js')
+  script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
+
+  body.hold-transition.skin-blue.sidebar-mini
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content.vertical-center
+        .row
+          //.col-md-6
+          .box.box-primary.col-md-2.box-account.box-shadow
+            .box-body 
+              .input-group.input-group-sm
+                input#search-string.form-control(type='text')
+                span.input-group-btn
+                  button#search-button.btn.btn-info.btn-flat(type='button') find classes
+              ul.users-list.clearfix
+              // /.users-list
+            // /.box-body
+          // /.col
+        // /.row
+      // /.content
+    // /.content-wrapper
+
+    script(src='/js/workspace/workspace.js')
+    script(src='/js/main.js')
