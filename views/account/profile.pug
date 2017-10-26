@@ -1,111 +1,146 @@
-extends ../layout
+extends ../workspace-layout
 
-block content
-  .page-header
-    h3 Profile Information
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  script(src='../bower_components/moment/moment.js')
+  script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
 
-  form.form-horizontal(action='/account/profile', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='email') Email
-      .col-sm-7
-        input.form-control(type='email', name='email', id='email', value=user.email)
-    .form-group
-      label.col-sm-3.control-label(for='name') Name
-      .col-sm-7
-        input.form-control(type='text', name='name', id='name', value=user.profile.name)
-    .form-group
-      label.col-sm-3.control-label Gender
-      .col-sm-6
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
-          span Male
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
-          span Female
-        label.radio.col-sm-3
-          input(type='radio', checked=user.profile.gender=='other', name='gender', value='other', data-toggle='radio')
-          span Other
-    .form-group
-      label.col-sm-3.control-label(for='location') Location
-      .col-sm-7
-        input.form-control(type='text', name='location', id='location', value=user.profile.location)
-    .form-group
-      label.col-sm-3.control-label(for='website') Website
-      .col-sm-7
-        input.form-control(type='text', name='website', id='website', value=user.profile.website)
-    .form-group
-      label.col-sm-3.control-label Gravatar
-      .col-sm-4
-        img(src=user.gravatar(), class='profile', width='100', height='100')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn.btn-primary(type='submit')
-          i.fa.fa-pencil
-          | Update Profile
+  body.hold-transition.skin-blue.sidebar-mini
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content
+        .row
+          .col-md-6
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-calendar
+                h3.box-title Profile
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                form.form-horizontal(action='/account/profile', method='POST')
+                  input(type='hidden', name='_csrf', value=_csrf)
+                  .form-group
+                    label.col-sm-3.control-label(for='email') Email
+                    .col-sm-7
+                      input.form-control(type='email', name='email', id='email', value=user.email)
+                  .form-group
+                    label.col-sm-3.control-label(for='name') Name
+                    .col-sm-7
+                      input.form-control(type='text', name='name', id='name', value=user.profile.name)
+                  .form-group
+                    label.col-sm-3.control-label Gender
+                    .col-sm-9
+                      label.radio.col-sm-3
+                        input(type='radio', checked=user.profile.gender=='male', name='gender', value='male', data-toggle='radio')
+                        span Male
+                      label.radio.col-sm-3
+                        input(type='radio', checked=user.profile.gender=='female', name='gender', value='female', data-toggle='radio')
+                        span Female
+                      label.radio.col-sm-3
+                        input(type='radio', checked=user.profile.gender=='other', name='gender', value='other', data-toggle='radio')
+                        span Other
+                  .form-group
+                    label.col-sm-3.control-label(for='location') Location
+                    .col-sm-7
+                      input.form-control(type='text', name='location', id='location', value=user.profile.location)
+                  .form-group
+                    label.col-sm-3.control-label(for='website') Website
+                    .col-sm-7
+                      input.form-control(type='text', name='website', id='website', value=user.profile.website)
+                  .form-group
+                    label.col-sm-3.control-label Gravatar
+                    .col-sm-4
+                      img(src=user.gravatar(), class='profile', width='100', height='100')
+                  .form-group
+                    .col-sm-offset-3.col-sm-4
+                      button.btn.btn.btn-primary(type='submit', style='justify-content: center;')
+                        i.fa.fa-pencil
+                        | Update Profile
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-bar-chart-o
+                h4.box-title Earnings
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                #line-chart(style='height: 150px;')
+              // /.box-body
+          .col-md-6
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-graduation-cap
+                h4.box-title Awards
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                ul.users-list.clearfix
+                  li
+                    img.award-img(src='../images/rewards/asset2.png')
+                    a.users-list-name(href='#') great job
+                  li
+                    img.award-img(src='../images/rewards/asset1.png')
+                    a.users-list-name(href='#') well done!
+                  li
+                    img.award-img(src='../images/rewards/asset3.png')
+                    a.users-list-name(href='#') very good
+                  li
+                    img.award-img(src='../images/rewards/asset6.png')
+                    a.users-list-name(href='#') excellent!
+                  li
+                    img.award-img(src='../images/rewards/asset7.png')
+                    a.users-list-name(href='#') great job!
+                  li
+                    img.award-img(src='../images/rewards/asset8.png')
+                    a.users-list-name(href='#') keep the temp
+                  li
+                    img.award-img(src='../images/rewards/asset9.png')
+                    a.users-list-name(href='#') the best!
+                  li
+                    img.award-img(src='../images/rewards/asset10.png')
+                    a.users-list-name(href='#') thumbs up!
+                  li
+                    img.award-img(src='../images/rewards/asset11.png')
+                    a.users-list-name(href='#') great job!
 
-  .page-header
-    h3 Change Password
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-user
+                h4.box-title Find classes, people...
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                .input-group.input-group-sm
+                  input#search-string.form-control(type='text')
+                  span.input-group-btn
+                    button#search-button.btn.btn-info.btn-flat(type='button') search
+                ul.users-list.new-users-list.clearfix
+                  
+            .box.box-primary.box-shadow
+              .box-header.with-border
+                i.fa.fa-user
+                h4.box-title Contacts
+                .box-tools.pull-right
+                  button.btn.btn-box-tool(type='button', data-widget='collapse')
+                    i.fa.fa-minus
+              .box-body
+                .input-group.input-group-sm
+                  span.input-group-btn
+                ul.users-list.existing-users-list.clearfix
 
-  form.form-horizontal(action='/account/password', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='password') New Password
-      .col-sm-7
-        input.form-control(type='password', name='password', id='password')
-    .form-group
-      label.col-sm-3.control-label(for='confirmPassword') Confirm Password
-      .col-sm-7
-        input.form-control(type='password', name='confirmPassword', id='confirmPassword')
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn-primary(type='submit')
-          i.fa.fa-lock
-          | Change Password
+              // /.box-body
 
-  .page-header
-    h3 Delete Account
 
-  form.form-horizontal(action='/account/delete', method='POST')
-    .form-group
-      p.col-sm-offset-3.col-sm-4 You can delete your account, but keep in mind this action is irreversible.
-      input(type='hidden', name='_csrf', value=_csrf)
-      .col-sm-offset-3.col-sm-4
-        button.btn.btn-danger(type='submit')
-          i.fa.fa-trash
-          | Delete my account
+        // /.row
+      // /.content
+    // /.content-wrapper
 
-  .page-header
-    h3 Linked Accounts
-  .form-horizontal
-    .form-group
-      .col-sm-offset-3.col-sm-4
-        if user.instagram
-          p: a.text-danger(href='/account/unlink/instagram') Unlink your Instagram account
-        else
-          p: a(href='/auth/instagram') Link your Instagram account
-      .col-sm-offset-3.col-sm-4
-        if user.google
-          p: a.text-danger(href='/account/unlink/google') Unlink your Google account
-        else
-          p: a(href='/auth/google') Link your Google account
-      .col-sm-offset-3.col-sm-4
-        if user.facebook
-          p: a.text-danger(href='/account/unlink/facebook') Unlink your Facebook account
-        else
-          p: a(href='/auth/facebook') Link your Facebook account
-      .col-sm-offset-3.col-sm-4
-        if user.twitter
-          p: a.text-danger(href='/account/unlink/twitter') Unlink your Twitter account
-        else
-          p: a(href='/auth/twitter') Link your Twitter account
-      .col-sm-offset-3.col-sm-4
-        if user.github
-          p: a.text-danger(href='/account/unlink/github') Unlink your GitHub account
-        else
-          p: a(href='/auth/github') Link your GitHub account
-      .col-sm-offset-3.col-sm-4
-        if user.linkedin
-          p: a.text-danger(href='/account/unlink/linkedin') Unlink your LinkedIn account
-        else
-          p: a(href='/auth/linkedin') Link your LinkedIn account
+    script(src='/js/workspace/workspace.js')
+    script(src='/js/main.js')

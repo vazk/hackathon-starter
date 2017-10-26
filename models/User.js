@@ -23,7 +23,8 @@ const userSchema = new mongoose.Schema({
     location: String,
     website: String,
     picture: String,
-    role: String
+    role: String,
+    contacts: []
   }
 }, { timestamps: true });
 

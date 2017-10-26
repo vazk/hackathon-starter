@@ -12,13 +12,13 @@ header.main-header
           |  iLsaran
       .collapse.navbar-collapse
         ul.nav.navbar-nav
-          li(class=(title === 'Home') ? 'active' : undefined)
+          //li(class=(title === 'Home') ? 'active' : undefined)
             a(href='/') Home
-          li(class=(title === 'API Examples') ? 'active' : undefined)
+          //li(class=(title === 'API Examples') ? 'active' : undefined)
             a(href='/api') API Examples
-          li(class=(title === 'Contact') ? 'active' : undefined)
+          //li(class=(title === 'Contact') ? 'active' : undefined)
             a(href='/contact') Contact
-          li
+          //li
             a(href='/status') Status
         ul.nav.navbar-nav.navbar-right
           if !user
@@ -32,12 +32,14 @@ header.main-header
                 if user.profile.picture
                   img(src=user.profile.picture)
                 else
-                  img(src=user.gravatar(60))
+                  img.avatar-img(src=user.gravatar(60))
                 span= user.profile.name || user.email || user.id
                 i.caret
               ul.dropdown-menu
                 li
                   a(href='/account') My Account
+                  li
+                    a(href='/') Workspace
                 li.divider
                 li
                   a(href='/logout') Logout

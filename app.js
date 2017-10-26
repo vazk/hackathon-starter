@@ -90,6 +90,10 @@ app.use((req, res, next) => {
   if (req.path === '/api/upload') {
     next();
   } else {
+    //res.cookie('XSRF-TOKEN', req.session._csrf);
+    //res.locals.csrftoken = req.session._csrf;
+    res.locals._csrf = req.body._csrf;
+    console.log('RESX', req.body);
     lusca.csrf()(req, res, next);
   }
 });
@@ -97,6 +101,7 @@ app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {
   res.locals.user = req.user;
+
   next();
 });
 app.use((req, res, next) => {
@@ -135,6 +140,9 @@ app.post('/account/profile', passportConfig.isAuthenticated, userController.post
 app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
 app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+app.post('/usercontacts', userController.postUserContacts);
+app.get('/usercontacts', userController.getUserContacts);
+app.get('/search', userController.findUsers);
 
 /**
  * API examples routes.
@@ -216,7 +224,6 @@ app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public
 app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/api/pinterest');
 });
-
 /**
  * Error Handler.
  */

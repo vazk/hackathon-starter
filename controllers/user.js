@@ -82,22 +82,25 @@ exports.postSignup = (req, res, next) => {
   const errors = req.validationErrors();
 
   if (errors) {
+    console.log("POST errors: ",errors);
     req.flash('errors', errors);
     return res.redirect('/signup');
   }
 
   const user = new User({
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    profile: {role: req.body.role}
   });
 
   User.findOne({ email: req.body.email }, (err, existingUser) => {
-    if (err) { return next(err); }
+  if (err) { return next(err); }
     if (existingUser) {
       req.flash('errors', { msg: 'Account with that email address already exists.' });
       return res.redirect('/signup');
     }
     user.save((err) => {
+      console.log("POST save error: ",err);
       if (err) { return next(err); }
       req.logIn(user, (err) => {
         if (err) {
@@ -108,6 +111,107 @@ exports.postSignup = (req, res, next) => {
     });
   });
 };
+
+exports.postUserContacts = (req, res, next) => {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+  if(req.body.action == 'add' &&
+     req.body.userId != req.user._id &&
+     (req.user.profile.contacts.indexOf(req.body.userId) < 0) ) {
+    req.user.profile.contacts.push(req.body.userId);
+    req.user.save((err) => {
+      console.log("POST save:  error: ",err);
+      if (err) { return next(err); }
+    });
+  }
+  res.sendStatus(200);
+};
+
+exports.getUserContacts = (req, res) => {
+  if (!req.user) {
+    return res.redirect('/');
+  }
+
+/*  req.user.profile.contacts = [];
+  console.log('ooo ', req.user.profile.contacts);
+  req.user.save((err) => {
+    console.log("POST save:  error: ",err);
+    if (err) { return next(err); }
+  });
+*/
+
+  User.find()
+    .where('_id')
+    .in(req.user.profile.contacts)
+    .exec(function (err, users) {
+      console.log('err: ', err);
+
+      if (!err) {
+         // Method to construct the json result set
+         res.send(users, {
+            'Content-Type': 'application/json'
+         }, 200);
+      } else {
+         res.send(JSON.stringify(err), {
+            'Content-Type': 'application/json'
+         }, 404);
+      }
+    });
+};
+
+
+exports.findUsers = (req, res) => {
+   //var regex = new RegExp(req.query["term"], 'i');
+   var regex = new RegExp(req.query.str, 'i');
+   var query = User.find({email: regex})
+                    .sort({"email":-1})
+                    .limit(20);
+
+   ;//, {'email': 1, 'createdAt':2});
+    /*var query = User.find({email: regex},
+                          {'email': 1,
+                           'profile.name':1,
+                           'profile.role':1,
+                           'profile.picture':1}).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20);
+    */
+   // Execute query in a callback and return users list
+   query.exec(function(err, users) {
+      if (!err) {
+         // Method to construct the json result set
+         var filteredUsers;
+         if (!req.isAuthenticated()) {
+           filteredUsers = users;
+         } else {
+           filteredUsers = [];
+           var numContact = req.user.profile.contacts.length;
+           for (var u in users) {
+             if(users[u]._id == req.user._id) {
+               continue;
+             }
+             var found = false;
+             for (var c = 0; c < numContact; ++c) {
+               //console.log('A: ',req.user.profile.contacts[c], ' : ', users[u]._id);
+               if (req.user.profile.contacts[c] == users[u]._id) {
+                 found = true;
+                 break;
+               }
+             }
+             if(!found) filteredUsers.push(users[u]);
+           }
+         }
+
+         res.send(filteredUsers, {
+            'Content-Type': 'application/json'
+         }, 200);
+      } else {
+         res.send(JSON.stringify(err), {
+            'Content-Type': 'application/json'
+         }, 404);
+      }
+   });
+};
+
 
 /**
  * GET /account
@@ -309,6 +413,7 @@ exports.getForgot = (req, res) => {
     title: 'Forgot Password'
   });
 };
+
 
 /**
  * POST /forgot

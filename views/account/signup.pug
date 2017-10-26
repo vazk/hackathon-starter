@@ -14,13 +14,12 @@ block workspace-content
       // Main content
       section.content.vertical-center
         .row
-          //.col-md-4
-          //.col-md-4
           .box.box-primary.col-md-4.box-account.box-shadow
             .box-header.with-border
               h3.box-title Sign Up
             .box-body
-              form.login-form
+              form.login-form(id='signup-form', method='POST')
+                input(type='hidden', name='_csrf', value=_csrf)
                 .login-group
                   input.login-input(type='email', name='email', id='email', autofocus, required)
                   span.login-highlight

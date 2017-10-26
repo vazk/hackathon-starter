@@ -8,19 +8,17 @@ block workspace-content
   script(src='../bower_components/fullcalendar/dist/fullcalendar.min.js')
 
   body.hold-transition.skin-blue.sidebar-mini
-
     // Content Wrapper. Contains page content
     .content-wrapper
       // Main content
       section.content.vertical-center
         .row
-          //.col-md-4
-          //.col-md-4
           .box.box-primary.col-md-4.box-account.box-shadow
             .box-header.with-border
               h3.box-title Sign In
             .box-body
-              form.login-form
+              form.login-form(method='POST')
+                input(type='hidden', name='_csrf', value=_csrf)
                 .login-group
                   input.login-input(type='email', name='email', id='email', autofocus, required)
                   span.login-highlight
@@ -31,7 +29,7 @@ block workspace-content
                   span.login-highlight
                   span.login-bar
                   label.login-label password
-                button.login-button.buttonBlue(type='button')
+                button.login-button.buttonBlue(type='submit')
                   | sign in
                   //.ripples.buttonRipples
                     span.ripplesCircle
