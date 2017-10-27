@@ -93,7 +93,6 @@ app.use((req, res, next) => {
     //res.cookie('XSRF-TOKEN', req.session._csrf);
     //res.locals.csrftoken = req.session._csrf;
     res.locals._csrf = req.body._csrf;
-    console.log('RESX', req.body);
     lusca.csrf()(req, res, next);
   }
 });

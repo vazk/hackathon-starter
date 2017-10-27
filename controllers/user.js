@@ -186,7 +186,7 @@ exports.findUsers = (req, res) => {
            filteredUsers = [];
            var numContact = req.user.profile.contacts.length;
            for (var u in users) {
-             if(users[u]._id == req.user._id) {
+             if(users[u]._id.equals(req.user._id)) {
                continue;
              }
              var found = false;

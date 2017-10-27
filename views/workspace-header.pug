@@ -1,4 +1,5 @@
 header.main-header
+  script var notAuthenticated = #{!user}
   .navbar.navbar-default.navbar-fixed-top
     .container.navbar-workspace
       .navbar-header
@@ -37,7 +38,7 @@ header.main-header
                 i.caret
               ul.dropdown-menu
                 li
-                  a(href='/account') My Account
+                  a(href='/account') Account
                   li
                     a(href='/') Workspace
                 li.divider

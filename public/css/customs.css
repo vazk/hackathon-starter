@@ -30,6 +30,42 @@ body {
   width: 100%;
 }
 
+
+ul.class-controls{
+    display: inline-block;
+    vertical-align:middle;
+    height: 30px;
+    width: 100%;
+}
+
+ul.class-controls>li.left-controls{
+    float: left;
+    list-style: none;
+    margin: 0 5px 10px 0;
+    vertical-align:middle;
+    height: 30px;
+}
+
+ul.class-controls>li.right-controls{
+    float: right;
+    list-style: none;
+    margin: 0 5px 10px 0;
+    vertical-align:middle;
+    display:block;
+}
+
+/*ul.class-controls>li>*{
+    height: 2em;
+}*/
+
+#class-counter{
+  height: 2em;
+  font-size: 1.5em;
+  font-weight: 900;
+  text-align: center;
+  vertical-align:middle;
+}
+
 .avatar-img {
     max-height: 17px;
     padding-right: 5px;

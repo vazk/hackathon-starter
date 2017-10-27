@@ -18,28 +18,36 @@ block workspace-content
             .box.box-primary.box-shadow
               .box-header.with-border(style="justify-content: center;")
                 i.fa.fa-laptop
-                h3.box-title Video
-
-                i.dropdown
-                  a.dropdown-toggle(data-toggle='dropdown', href='#', style='margin:20px', aria-expanded='false',)
-                    | Students...
-                    span.caret
-                  ul.dropdown-menu
-                    li(role='presentation')
-                      a(role='menuitem', tabindex='-1', href='#') Poxos
-                    li(role='presentation')
-                      a(role='menuitem', tabindex='-1', href='#') Petros
-                    li(role='presentation')
-                      a(role='menuitem', tabindex='-1', href='#') Martiros
-                .btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
-                .btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
+                h3.box-title Class
+                
+                //.btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
+                //.btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
 
                 .box-tools.pull-right
-                  h4.box-title(style="z-index: 1070; margin-right: 20px; vertical-align:middle;") 00:00:00
-                  .btn.bg-gray(style="z-index: 1070; width: 60px;  margin-right: 60px; padding: 3px;") Meter On
                   button.btn.btn-box-tool(type='button', data-widget='collapse')
                     i.fa.fa-minus
-              .box-body
+              .box-body.pad
+                form
+                  ul.class-controls
+                    li.dropdown.left-controls
+                      a.btn.btn-default.dropdown-toggle(data-toggle='dropdown', aria-expanded='false')
+                        span
+                        span.selected-active-contact Select contact 
+                        b.caret
+                      ul#active-contact-list.dropdown-menu
+                        //li
+                          a(tabindex='-1', href='javascript:;', unselectable='on') Normal text
+                        //li
+                          a(tabindex='-1', href='javascript:;', unselectable='on') Heading 1     
+                                     
+                    li.left-controls
+                      .btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
+                      .btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
+                    li.right-controls
+                      .btn.bg-gray(style="z-index: 1070; width: 60px;  margin-right: auto; padding: 3px;") Meter On
+                    li.right-controls
+                      div#class-counter 00:00:00
+
         .row
           .col-md-12
             .box.box-primary.box-shadow
@@ -138,6 +146,7 @@ block workspace-content
         // /.row
       // /.content
     // /.content-wrapper
-
+    //script.isAuthenticated="#{user}"
     script(src='/js/workspace/workspace.js')
+    //script var onContactsReady = #{onContactsReadyCallback}
     script(src='/js/main.js')

@@ -1,6 +1,7 @@
 //function addContact() {
 STATE = {
   contacts:  [],
+  initialized: false,
 };
 
 $(document).ready(function() {
@@ -11,11 +12,11 @@ $(document).ready(function() {
        url: "/usercontacts",
        data: {'action': 'get'},
        success: function(data) {
-         $(".existing-users-list").empty();
+         var existing_users_list = $(".existing-users-list");
+         existing_users_list.empty();
          STATE.contacts = [];
          for (var i in data) {
              var contact = data[i];
-             STATE.contacts.push(contact);
              var item = '<li>';//' id=' + contact._id + '>';
              if (contact.profile && contact.profile.picture)
                item += '<img src=" + data[contacts].profile.picture "/>';
@@ -27,8 +28,11 @@ $(document).ready(function() {
              item += contact.createdAt.substr(0, contact.createdAt.indexOf('T'));
              item += '</span></li>';
 
-             $(".existing-users-list").append(item);
+             STATE.contacts.push(contact);
+             existing_users_list.append(item);
          }
+         onContactsReadyCallback();
+
        },
        error: function(err) {
             console.log('error: ', err);
@@ -38,10 +42,11 @@ $(document).ready(function() {
   }
 
   $('.users-list').on('click', '.btn-add-contact', function (){
-
   //$('button.btn.btn-success.btn-block.btn-add-contact').on('click', function() {
      var csrf = $('input[name=_csrf]')[0].value;
-     var userId = $(this).attr('data-id');
+     var addBtn = $(this);
+     var userBlk = addBtn.parent().parent();
+     var userId = addBtn.attr('data-id');
      $.ajax({
         method: "POST",
         url: "/usercontacts",
@@ -50,7 +55,7 @@ $(document).ready(function() {
                '_csrf': csrf},
         success: function(result) {
           refreshContacts();
-          $(this).remove();
+          userBlk.remove();
         }
      });
   });
@@ -64,7 +69,8 @@ $(document).ready(function() {
           type: "GET",
           data: {'type':'user', 'str':search_str},  // request is the value of search input
           success: function (data) {
-            $(".search-users-list").empty();
+            var search_users_list = $(".search-users-list");
+            search_users_list.empty();
             for (var i in data) {
                 var contact = data[i];
                 // if the contact is already added...
@@ -84,7 +90,7 @@ $(document).ready(function() {
                 item += '<button data-id="' + contact._id + '" class="btn btn-success btn-block btn-add-contact">add</button>';
                 item += '</span></li>';
 
-                $(".search-users-list").append(item);
+                search_users_list.append(item);
             }
           },
           error: function(err) {
@@ -95,49 +101,13 @@ $(document).ready(function() {
 
 
   main = function() {
-    refreshContacts();
+    console.log("AAA: ", notAuthenticated);
+    if(notAuthenticated == false && STATE.initialized == false) {
+      refreshContacts();
+      STATE.initialized = true;
+    }
   };
 
-  main()
+  main();
 
-
-
-  /*$("#search-member").autocomplete({
-      source: function (request, response) {
-         $.ajax({
-            url: "/search_member",
-            type: "GET",
-            data: request,  // request is the value of search input
-            success: function (data) {
-              // Map response values to fiedl label and value
-               response($.map(data, function (el) {
-                  return {
-                     label: el.fullname,
-                     value: el._id
-                  };
-                  }));
-               }
-            });
-         },
-
-         // The minimum number of characters a user must type before a search is performed.
-         minLength: 3,
-
-         // set an onFocus event to show the result on input field when result is focused
-         focus: function (event, ui) {
-            this.value = ui.item.label;
-            // Prevent other event from not being execute
-            event.preventDefault();
-         },
-         select: function (event, ui) {
-            // Prevent value from being put in the input:
-            this.value = ui.item.label;
-            // Set the id to the next input hidden field
-            $(this).next("input").val(ui.item.value);
-            // Prevent other event from not being execute
-            event.preventDefault();
-            // optionnal: submit the form after field has been filled up
-            $('#quicksearch').submit();
-         }
-  }); */
 });
