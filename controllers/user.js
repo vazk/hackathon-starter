@@ -112,18 +112,82 @@ exports.postSignup = (req, res, next) => {
   });
 };
 
+function _removeContacts(userA, userB) {
+    if(userA && userB && userA._id.equals(userB._id)) {
+      console.log("_removeContacts: same user");
+      return false;
+    }
+    var index = userA.profile.contacts.indexOf(userB._id);
+    if(index >= 0) {
+      userA.profile.contacts.splice(index, 1);
+      userA.save((err) => {
+        if (err) { return next(err); }
+      });
+    } else {
+      console.log("_removeContacts: userA doesn't have userB");
+    }
+    index = userB.profile.contacts.indexOf(userA._id);
+    if(index >= 0) {
+      userB.profile.contacts.splice(index, 1);
+      userB.save((err) => {
+        if (err) { return next(err); }
+      });
+    } else {
+      console.log("_removeContacts: userB doesn't have userA");
+    }
+};
+
+function _addContacts(userA, userB) {
+  console.log("A: ", userA, userB);
+    if(userA._id.equals(userB._id)) {
+      console.log("_addContacts: same user");
+      return false;
+    }
+    var index = userA.profile.contacts.indexOf(userB._id);
+    if(index < 0) {
+      userA.profile.contacts.push(userB._id);
+      userA.save((err) => {
+        if (err) { return next(err); }
+      });
+    } else {
+      console.log("_addContacts: userA already has userB");
+    }
+    index = userB.profile.contacts.indexOf(userA._id);
+    if(index < 0) {
+      userB.profile.contacts.push(userA._id);
+      userB.save((err) => {
+        if (err) { return next(err); }
+      });
+    } else {
+      console.log("_addContacts: userB already has userA");
+    }
+};
+
+
 exports.postUserContacts = (req, res, next) => {
+
+  // debug: remove all the contacts...
+  /*req.user.profile.contacts = [];
+  req.user.save((err) => {
+    if (err) { return next(err); }
+  });*/
+
   if (!req.user) {
     return res.redirect('/');
   }
-  if(req.body.action == 'add' &&
-     req.body.userId != req.user._id &&
-     (req.user.profile.contacts.indexOf(req.body.userId) < 0) ) {
-    req.user.profile.contacts.push(req.body.userId);
-    req.user.save((err) => {
-      console.log("POST save:  error: ",err);
-      if (err) { return next(err); }
-    });
+  if(req.body.action == 'add') {
+    User.find({_id: {$in: [req.user._id, req.body.userId]}},
+              function (err, users) {
+                if (err) { return next(err); }
+                _addContacts(users[0], users[1]);
+              });
+  } else
+  if(req.body.action == 'remove') {
+    User.find({_id: {$in: [req.user._id, req.body.userId]}},
+              function (err, users) {
+                if (err) { return next(err); }
+                _removeContacts(users[0], users[1]);
+              });
   }
   res.sendStatus(200);
 };
@@ -133,20 +197,10 @@ exports.getUserContacts = (req, res) => {
     return res.redirect('/');
   }
 
-/*  req.user.profile.contacts = [];
-  console.log('ooo ', req.user.profile.contacts);
-  req.user.save((err) => {
-    console.log("POST save:  error: ",err);
-    if (err) { return next(err); }
-  });
-*/
-
   User.find()
     .where('_id')
     .in(req.user.profile.contacts)
     .exec(function (err, users) {
-      console.log('err: ', err);
-
       if (!err) {
          // Method to construct the json result set
          res.send(users, {

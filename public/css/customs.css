@@ -54,6 +54,15 @@ ul.class-controls>li.right-controls{
     display:block;
 }
 
+.btn-add-contact,
+.btn-remove-contact {
+  width: 2em;
+  height: 1.5em;
+  padding: 0;
+  margin:0 auto;
+  display:block;
+  vertical-align:middle;
+}
 /*ul.class-controls>li>*{
     height: 2em;
 }*/

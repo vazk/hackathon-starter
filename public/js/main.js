@@ -26,6 +26,7 @@ $(document).ready(function() {
              item += contact.email;
              item += '</a><span class="existing-list-date list-date"> joined: ';
              item += contact.createdAt.substr(0, contact.createdAt.indexOf('T'));
+             item += '<button data-id="' + contact._id + '" class="btn bg-red btn-block btn-remove-contact">-</button>';
              item += '</span></li>';
 
              STATE.contacts.push(contact);
@@ -60,6 +61,23 @@ $(document).ready(function() {
      });
   });
 
+  $('.users-list').on('click', '.btn-remove-contact', function (){
+     var csrf = $('input[name=_csrf]')[0].value;
+     var removeBtn = $(this);
+     var userBlk = removeBtn.parent().parent();
+     var userId = removeBtn.attr('data-id');
+     $.ajax({
+        method: "POST",
+        url: "/usercontacts",
+        data: {'action': 'remove',
+               'userId': userId,
+               '_csrf': csrf},
+        success: function(result) {
+          refreshContacts();
+          userBlk.remove();
+        }
+     });
+  });
 
   $("#search-button").click(function(e){
       e.preventDefault();
@@ -87,7 +105,7 @@ $(document).ready(function() {
                 item += '</a><span class="list-date users-list-date"> joined: ';
                 item += contact.createdAt.substr(0, contact.createdAt.indexOf('T'));
                 //item += '</p><a href="add-contact?item=' + contact._id + '" class="btn btn-success btn-block">View Item</a></p>' +
-                item += '<button data-id="' + contact._id + '" class="btn btn-success btn-block btn-add-contact">add</button>';
+                item += '<button data-id="' + contact._id + '" class="btn btn-success btn-block btn-add-contact">+</button>';
                 item += '</span></li>';
 
                 search_users_list.append(item);
