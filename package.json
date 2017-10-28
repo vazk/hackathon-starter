@@ -12,7 +12,8 @@
     "start": "node app.js",
     "test": "mocha --reporter spec",
     "postinstall": "npm rebuild node-sass",
-    "eslint": "eslint **/*.js"
+    "eslint": "eslint **/*.js",
+    "runbrowserify": "browserify twilio-browser.js > public/js/workspace/twilio.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
@@ -58,8 +59,9 @@
     "request": "^2.81.0",
     "stripe": "^4.24.0",
     "tumblr.js": "^1.1.1",
-    "twilio": "^3.6.3",
     "twit": "^2.2.9",
+    "twilio": "^3.0.0",
+    "twilio-video": "^1.0.0",
     "validator": "^8.0.0"
   },
   "devDependencies": {
@@ -71,7 +73,8 @@
     "mocha": "^3.5.0",
     "sinon": "^3.2.1",
     "sinon-mongoose": "^2.0.2",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "browserify": "^14.3.0"
   },
   "eslintConfig": {
     "extends": "airbnb-base",

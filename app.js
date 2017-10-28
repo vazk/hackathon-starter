@@ -34,6 +34,7 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
+const twilioController = require('./controllers/twilio');
 
 /**
  * API keys and Passport configuration.
@@ -123,6 +124,9 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/workspace', homeController.authenticated);
+app.get('/donate', homeController.donate);
+app.get('/aboutus', homeController.aboutus);
 app.get('/login', userController.getLogin);
 app.post('/login', userController.postLogin);
 app.get('/logout', userController.logout);
@@ -204,6 +208,7 @@ app.get('/auth/linkedin/callback', passport.authenticate('linkedin', { failureRe
   res.redirect(req.session.returnTo || '/');
 });
 
+
 /**
  * OAuth authorization routes. (API examples)
  */
@@ -223,6 +228,10 @@ app.get('/auth/pinterest', passport.authorize('pinterest', { scope: 'read_public
 app.get('/auth/pinterest/callback', passport.authorize('pinterest', { failureRedirect: '/login' }), (req, res) => {
   res.redirect('/api/pinterest');
 });
+
+app.get('/videotoken', twilioController.generateToken);
+
+
 /**
  * Error Handler.
  */

@@ -1,0 +1,30 @@
+extends workspace-layout
+
+block workspace-content
+  // fullCalendar
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.min.css')
+  link(rel='stylesheet', href='../bower_components/fullcalendar/dist/fullcalendar.print.min.css', media='print')
+  //script(src='../bower_components/moment/moment.js')
+
+  body.hold-transition.skin-blue.sidebar-mini
+
+    // Content Wrapper. Contains page content
+    .content-wrapper
+      // Main content
+      section.content.vertical-center
+        .row.container-fluid
+          .box.box-primary.box-centerbox.box-shadow(style='min-width:70%')
+            .box-header.with-border
+              h3.box-title Donate
+            .box-body
+              form.login-form(id='donate-form', method='POST')
+                input(type='hidden', name='_csrf', value=_csrf)
+                button.login-button.buttonBlue(type='submit')
+                  | donate
+              // /.box-body
+          // /.col
+        // /.row
+      // /.content
+    // /.content-wrapper
+
+    //script(src='/js/workspace/workspace.js')

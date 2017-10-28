@@ -42,7 +42,8 @@ exports.postLogin = (req, res, next) => {
     req.logIn(user, (err) => {
       if (err) { return next(err); }
       req.flash('success', { msg: 'Success! You are logged in.' });
-      res.redirect(req.session.returnTo || '/');
+      res.redirect('/workspace');
+      //res.redirect(req.session.returnTo || '/');
     });
   })(req, res, next);
 };
@@ -106,7 +107,7 @@ exports.postSignup = (req, res, next) => {
         if (err) {
           return next(err);
         }
-        res.redirect('/');
+        res.redirect('/workspace');
       });
     });
   });
@@ -138,7 +139,6 @@ function _removeContacts(userA, userB) {
 };
 
 function _addContacts(userA, userB) {
-  console.log("A: ", userA, userB);
     if(userA._id.equals(userB._id)) {
       console.log("_addContacts: same user");
       return false;
@@ -273,7 +273,7 @@ exports.findUsers = (req, res) => {
  */
 exports.getAccount = (req, res) => {
   res.render('account/profile', {
-    title: 'Account Management'
+    title: 'Account'
   });
 };
 

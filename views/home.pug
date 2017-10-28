@@ -20,7 +20,7 @@ block workspace-content
                 i.fa.fa-laptop
                 h3.box-title Class
                 
-                //.btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
+                //.btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 10px; padding: 3px;") Call
                 //.btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
 
                 .box-tools.pull-right
@@ -41,13 +41,29 @@ block workspace-content
                           a(tabindex='-1', href='javascript:;', unselectable='on') Heading 1     
                                      
                     li.left-controls
-                      .btn.bg-green(style="z-index: 1070; width: 60px;  margin-left: 60px; padding: 3px;") Call
-                      .btn.bg-red(style="z-index: 1070; width: 80px;   margin-left: 10px; padding: 3px;") Hang Up
+                      #button-join-leave.btn.bg-green(style="z-index: 1070; width: 8em;  margin-left: 1.5em; padding:.3em;") Join the class...
                     li.right-controls
-                      .btn.bg-gray(style="z-index: 1070; width: 60px;  margin-right: auto; padding: 3px;") Meter On
+                      .btn.bg-gray(style="z-index: 1070; width: 80px;  margin-right: auto; padding: .3em;") Meter Off
                     li.right-controls
                       div#class-counter 00:00:00
+                section.content
+                  .row
+                    .col-md-3
+                      .box-body.video-body
+                        #controls
+                          #preview
+                            #local-media
+                            button#button-preview Preview My Camera
+                          //#room-controls
+                            p.instructions Room Name:
+                            input#room-name(type='text', placeholder='Enter a room name')
+                            button#button-join Join Room
+                            button#button-leave Leave Room
+                          //#log
 
+                    .col-md-9
+                      .box-body.video-body
+                        #remote-media
         .row
           .col-md-12
             .box.box-primary.box-shadow
@@ -146,7 +162,6 @@ block workspace-content
         // /.row
       // /.content
     // /.content-wrapper
-    //script.isAuthenticated="#{user}"
     script(src='/js/workspace/workspace.js')
-    //script var onContactsReady = #{onContactsReadyCallback}
+    script(src='/js/workspace/twilio.js')
     script(src='/js/main.js')

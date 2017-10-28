@@ -1,10 +1,13 @@
 //function addContact() {
 STATE = {
-  contacts:  [],
+  contacts:  {},
   initialized: false,
+  currentUser: null,
+  selectedUser: null,
 };
 
 $(document).ready(function() {
+
 
   refreshContacts = function() {
     $.ajax({
@@ -14,7 +17,8 @@ $(document).ready(function() {
        success: function(data) {
          var existing_users_list = $(".existing-users-list");
          existing_users_list.empty();
-         STATE.contacts = [];
+         STATE.currentUser = currentUser;
+         STATE.contacts = {};
          for (var i in data) {
              var contact = data[i];
              var item = '<li>';//' id=' + contact._id + '>';
@@ -29,7 +33,7 @@ $(document).ready(function() {
              item += '<button data-id="' + contact._id + '" class="btn bg-red btn-block btn-remove-contact">-</button>';
              item += '</span></li>';
 
-             STATE.contacts.push(contact);
+             STATE.contacts[contact.email] = contact;
              existing_users_list.append(item);
          }
          onContactsReadyCallback();
@@ -92,7 +96,7 @@ $(document).ready(function() {
             for (var i in data) {
                 var contact = data[i];
                 // if the contact is already added...
-                if(STATE.contacts.indexOf(contact) >= 0) {
+                if(contact.email in STATE.contacts) {
                   continue;
                 }
                 var item = '<li>';//' id=' + contact._id + '>';
@@ -119,8 +123,7 @@ $(document).ready(function() {
 
 
   main = function() {
-    console.log("AAA: ", notAuthenticated);
-    if(notAuthenticated == false && STATE.initialized == false) {
+    if(currentUser && STATE.initialized == false) {
       refreshContacts();
       STATE.initialized = true;
     }

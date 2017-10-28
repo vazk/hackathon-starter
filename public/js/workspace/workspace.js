@@ -424,7 +424,6 @@ function onContactsReadyCallback() {
     item += '<a>';
     item += contact.email;
     item += '</a>';//<span class="existing-list-date list-date"> </span></li>';
-
     active_contacts_list.append(item)
   }
 }
@@ -435,6 +434,7 @@ $('#active-contact-list').on('click', '.active-contact', function() {
     var sc = $('.selected-active-contact');
     var t = li.text();
     sc.text(li.text());
+    STATE.selectedContact = STATE.contacts[li.text()];
 });
 
 
