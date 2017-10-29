@@ -34,12 +34,7 @@ block workspace-content
                         span
                         span.selected-active-contact Select contact 
                         b.caret
-                      ul#active-contact-list.dropdown-menu
-                        //li
-                          a(tabindex='-1', href='javascript:;', unselectable='on') Normal text
-                        //li
-                          a(tabindex='-1', href='javascript:;', unselectable='on') Heading 1     
-                                     
+                      ul#active-contact-list.dropdown-menu                                      
                     li.left-controls
                       #button-join-leave.btn.bg-green(style="z-index: 1070; width: 8em;  margin-left: 1.5em; padding:.3em;") Join the class...
                     li.right-controls
@@ -53,14 +48,8 @@ block workspace-content
                         #controls
                           #preview
                             #local-media
-                            button#button-preview Preview My Camera
-                          //#room-controls
-                            p.instructions Room Name:
-                            input#room-name(type='text', placeholder='Enter a room name')
-                            button#button-join Join Room
-                            button#button-leave Leave Room
-                          //#log
-
+                            input#button-camera(type="image", src="../images/icons/camon.png" )
+                            input#button-michrophone(type="image", src="../images/icons/micon.png" )
                     .col-md-9
                       .box-body.video-body
                         #remote-media

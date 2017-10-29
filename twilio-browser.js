@@ -7,6 +7,8 @@ var previewTracks;
 var identity;
 var roomName;
 var isJoined = false;
+var cameraOn = false;
+var microphoneOn = false;
 
 // Attach the Tracks to the DOM.
 function attachTracks(tracks, container) {
@@ -163,28 +165,63 @@ function roomJoined(room) {
     btnJoinLeave.text('Join the class...')
     btnJoinLeave.removeClass('bg-red');
     btnJoinLeave.addClass('bg-green');
-    //document.getElementById('button-join').style.display = 'inline';
-    //document.getElementById('button-leave').style.display = 'none';
+    $('#button-camera').attr('src', '../images/icons/camon.png');
+    $('#button-michrophone').attr('src', '../images/icons/micon.png');
   });
 }
 
+$("#button-michrophone").click(function(){
+  if(microphoneOn) {
+    microphoneOn = false;
+    var localParticipant = activeRoom.localParticipant;
+    localParticipant.audioTracks.forEach(function (audioTrack) {
+       audioTrack.disable();
+    });
+    $('#button-michrophone').attr('src', '../images/icons/micoff.png');
+  } else {
+    microphoneOn = true;
+    var localParticipant = activeRoom.localParticipant;
+    localParticipant.audioTracks.forEach(function (audioTrack) {
+       audioTrack.enable();
+    });
+    $('#button-michrophone').attr('src', '../images/icons/micon.png');
+  }
+});
 // Preview LocalParticipant's Tracks.
 //document.getElementById('button-preview').onclick = function() {
-$("#button-preview").click(function(){
-  var localTracksPromise = previewTracks
-    ? Promise.resolve(previewTracks)
-    : Video.createLocalTracks();
+$("#button-camera").click(function(){
+  if(cameraOn) {
+    cameraOn = false;
+    var localParticipant = activeRoom.localParticipant;
+    localParticipant.videoTracks.forEach(function (videoTrack) {
+       videoTrack.disable();
+    });
 
-  localTracksPromise.then(function(tracks) {
-    window.previewTracks = previewTracks = tracks;
-    var previewContainer = $('#local-media')[0];
-    if (!previewContainer.querySelector('video')) {
-      attachTracks(tracks, previewContainer);
-    }
-  }, function(error) {
-    console.error('Unable to access local media', error);
-    log('Unable to access Camera and Microphone');
-  });
+    $('#button-camera').attr('src', '../images/icons/camoff.png');
+  } else {
+      cameraOn = true;
+      var localParticipant = activeRoom.localParticipant;
+      localParticipant.videoTracks.forEach(function (videoTrack) {
+         videoTrack.enable();
+      });
+      $('#button-camera').attr('src', '../images/icons/camon.png');
+
+      /*var localTracksPromise = previewTracks
+        ? Promise.resolve(previewTracks)
+        : Video.createLocalTracks();
+
+      localTracksPromise.then(function(tracks) {
+        window.previewTracks = previewTracks = tracks;
+        var previewContainer = $('#local-media')[0];
+        if (!previewContainer.querySelector('video')) {
+          attachTracks(tracks, previewContainer);
+        }
+        $('#button-camera').attr('src', '../images/icons/camoff.png');
+      }, function(error) {
+        console.error('Unable to access local media', error);
+        log('Unable to access Camera and Microphone');
+      });*/
+  }
 });
 
 // Activity log.
@@ -198,5 +235,7 @@ $("#button-preview").click(function(){
 function leaveRoomIfJoined() {
   if (activeRoom) {
     activeRoom.disconnect();
+    $('#button-camera').attr('src', '../images/icons/camon.png');
+    $('#button-michrophone').attr('src', '../images/icons/micon.png');
   }
 }
