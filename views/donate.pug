@@ -17,10 +17,9 @@ block workspace-content
             .box-header.with-border
               h3.box-title Donate
             .box-body
-              form.login-form(id='donate-form', method='POST')
-                input(type='hidden', name='_csrf', value=_csrf)
-                button.login-button.buttonBlue(type='submit')
-                  | donate
+              script(src='https://donorbox.org/widget.js', type='text/javascript')
+              iframe#dbox-form-embed(src='https://donorbox.org/embed/ilsaran?hide_donation_meter=true', height='685px', width='100%', style='max-width:500px; min-width:310px; max-height:none!important', seamless='seamless', name='donorbox', frameborder='0', scrolling='no')
+
               // /.box-body
           // /.col
         // /.row
