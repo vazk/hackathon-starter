@@ -13,7 +13,7 @@
     "test": "mocha --reporter spec",
     "postinstall": "npm rebuild node-sass",
     "eslint": "eslint **/*.js",
-    "runbrowserify": "browserify twilio-browser.js > public/js/workspace/twilio.js"
+    "runbrowserify": "browserify twilio-browser.js > public/js/twilio.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
