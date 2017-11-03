@@ -6,18 +6,16 @@ body {
   background-size: cover;
 }
 
+* {
+ font-size: 100%;
+ font-family: 'Montserrat Alternates', sans-serif;
+}
+
 .main-footer, .main-header, .navbar{
     background: rgba(0, 0, 0, 0.6);
     color: rgba(255, 255, 255, 255);
 }
 
-/*.main-footer {
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    height: 45px;
-    width: 100%;
-}*/
 .box-account {
     max-width: 400px;
 }
